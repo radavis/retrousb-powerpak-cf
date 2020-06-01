@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 csv_file="$1"
-if [ ! -f $csv_file ]; then
-  echo "$csv_file not found"
+if [ ! -f "$csv_file" ]; then
+  echo "$csv_file csv file not found"
   exit 1
 fi
 

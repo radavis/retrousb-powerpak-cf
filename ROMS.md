@@ -47,10 +47,17 @@ $ aria2c --dir="$(pwd)/temp" \
 $ cd temp/CylesNESRomPack
 $ unzip "Cyles' NES Rom Pack.zip"
 $ find . -type f | wc -l  # 3003 files
+
+$ find . -name "*.zip" -exec unzip '{}' \;
+$ rm *.zip
+
+$ cd ../USA
+$ ./../../../bin/organize-roms
 ```
 
 ## Copy Roms
 
 ```bash
-$ cp -r temp/nointro/{Asia,Australia,Europe,Other,Spain,USA,World} ./build
+$ cp -r temp/nointro/{Asia,Australia,Europe,Other,Spain,USA,World} ./build  # or
+$ cp -r temp/CylesNESRomPack/{Hacks,Translations,Unlicensed,USA} ./build
 ```

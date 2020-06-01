@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Creates folders #,A-Z, moves .nes files into respective folders
+
 mkdir "#"
 mv [0-9]*.nes "#"/
 

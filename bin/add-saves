@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+game_list="$1"
+if [ ! -f "$game_list" ]; then
+  echo "$game_list game list file not found"
+  exit 1
+fi
+
 url="https://www.retrousb.com/downloads/8KBsave.zip"
 
 current_path=$(pwd)
@@ -11,7 +17,10 @@ filename=$(basename "$url")
 [ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"
 
 # extract
-unzip -q "$assets_dir/$filename" -d "$destination_dir"
+unzip -o -q "$assets_dir/$filename" -d "$destination_dir"
 
-# cleanup
-rm -rf "$destination_dir/__MACOSX"
+save_file="$destination_dir/8KBsave.sav"
+
+while IFS= read -r name; do
+  cp "$save_file" "$destination_dir/$name.sav"
+done < "$game_list"
