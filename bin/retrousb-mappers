@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 url="https://www.retrousb.com/downloads/POWERPAK134105.zip"
+filename=$(basename "$url")
 
 current_path=$(pwd)
 assets_dir="$current_path/assets"
-filename=$(basename "$url")
 
 # download (if necessary)
 [ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"

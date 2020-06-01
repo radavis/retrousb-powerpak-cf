@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+csv_file="$1"
+if [ ! -f $csv_file ]; then
+  echo "$csv_file not found"
+  exit 1
+fi
+
+current_path=$(pwd)
+assets_dir="$current_path/assets"
+mappers_dir="$current_path/build/POWERPAK"
+
+previous_ifs=$IFS
+IFS=";"
+
+while read name file url; do
+  # download (if necessary)
+  filename="$assets_dir/$file"
+  [ ! -f "$filename" ] && wget "$url" -O "$filename"
+
+  # extract
+  temp_dir=$(mktemp -d "$current_path/temp/$name")
+  unzip -q "$filename" -d "$temp_dir"
+
+  # move mappers
+  find "$temp_dir" -name "*.MAP" -exec mv '{}' "$mappers_dir" \;
+
+  # cleanup
+  rm -rf "$temp_dir"
+done < $csv_file
+
+IFS=$previous_ifs

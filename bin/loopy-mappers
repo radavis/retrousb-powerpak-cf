@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
 
 url="http://3dscapture.com/NES/powerpak_loopy.zip"
+filename=$(basename "$url")
 
 current_path=$(pwd)
 assets_dir="$current_path/assets"
 mappers_dir="$current_path/build/POWERPAK"
-destination_dir="$current_path/build/POWERPAK/loopy"
-filename=$(basename "$url")
 
 # download (if necessary)
 [ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"
 
 # extract
-unzip -q "$assets_dir/$filename" -d "$destination_dir"
-
-# move
-find "$destination_dir" -name "*.MAP" -exec mv '{}' "$mappers_dir" \;
-mv "$destination_dir/FDSBIOS.BIN" "$mappers_dir"
-mv "$destination_dir/NSF.NES" "$mappers_dir"
+unzip -o -q "$assets_dir/$filename" -d "$mappers_dir"

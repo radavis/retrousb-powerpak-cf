@@ -1,6 +1,4 @@
 assets/*
-!assets/.keep
 build/*
-!build/.keep
 img/*.img
 temp/*

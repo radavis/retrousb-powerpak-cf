@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+./bin/clean
+./bin/retrousb-mappers
+./bin/loopy-mappers
+./bin/other-mappers mappers.csv

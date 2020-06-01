@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+mkdir "#"
+mv [0-9]*.nes "#"/
+
 for char in {A..Z}; do
   mkdir $char
   mv "$char"*.nes "$char"/
