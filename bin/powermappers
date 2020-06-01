@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+url="https://fo.aspekt.fi/downloads/powermappers-v23.zip"
+
+current_path=$(pwd)
+assets_dir="$current_path/assets"
+mappers_dir="$current_path/build/POWERPAK"
+destination_dir="$current_path/build/POWERPAK/powermappers"
+filename=$(basename "$url")
+
+# download (if necessary)
+[ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"
+
+# extract
+unzip -q "$assets_dir/$filename" -d "$destination_dir"
+
+# move
+find "$destination_dir/mappers" -name "*.MAP" -exec mv '{}' "$mappers_dir" \;
+
+# cleanup
+rm -rf "$destination_dir/mappers"

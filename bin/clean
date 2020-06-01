@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+build_dir="$(pwd)/build"
+
+rm -rf "$build_dir"
+mkdir "$build_dir"

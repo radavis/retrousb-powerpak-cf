@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for char in {A..Z}; do
+  mkdir $char
+  mv "$char"*.nes "$char"/
+done

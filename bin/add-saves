@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+url="https://www.retrousb.com/downloads/8KBsave.zip"
+
+current_path=$(pwd)
+assets_dir="$current_path/assets"
+destination_dir="$current_path/build/POWERPAK/SAVES"
+filename=$(basename "$url")
+
+# download (if necessary)
+[ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"
+
+# extract
+unzip -q "$assets_dir/$filename" -d "$destination_dir"
+
+# cleanup
+rm -rf "$destination_dir/__MACOSX"
