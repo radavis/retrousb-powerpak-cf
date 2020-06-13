@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 url="https://www.retrousb.com/downloads/POWERPAK134105.zip"
+checksum="9b9c68a8068d02659613b3def1319e3411ee004ecde79a983c00c53c451fb842"
 filename=$(basename "$url")
 
 current_path=$(pwd)
@@ -8,6 +9,10 @@ assets_dir="$current_path/assets"
 
 # download (if necessary)
 [ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"
+
+# verify checksum
+file_checksum=$(openssl dgst -sha256 -binary "$assets_dir/$filename" | xxd -p -c 256)
+[[ "$file_checksum" != "$checksum" ]] && echo "bad checksum for $filename, exiting" && exit 1
 
 # extract
 unzip -q "$assets_dir/$filename" -d "$current_path/build"

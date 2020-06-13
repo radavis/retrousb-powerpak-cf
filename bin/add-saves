@@ -7,6 +7,7 @@ if [ ! -f "$game_list" ]; then
 fi
 
 url="https://www.retrousb.com/downloads/8KBsave.zip"
+checksum="8edba870806d71c41841467d71887baf6394c32536dd9dcb520db48171eeb81b"
 
 current_path=$(pwd)
 assets_dir="$current_path/assets"
@@ -15,6 +16,10 @@ filename=$(basename "$url")
 
 # download (if necessary)
 [ ! -f "$assets_dir/$filename" ] && wget "$url" -P "$assets_dir"
+
+# verify checksum
+file_checksum=$(openssl dgst -sha256 -binary "$assets_dir/$filename" | xxd -p -c 256)
+[[ "$file_checksum" != "$checksum" ]] && echo "bad checksum for $filename, exiting" && exit 1
 
 # extract
 unzip -o -q "$assets_dir/$filename" -d "$destination_dir"

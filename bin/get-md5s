@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find assets/* -type f -exec \
+  openssl dgst -sha256 {} > assets.sha256 \;

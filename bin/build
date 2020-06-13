@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+set -euxo pipefail
 
 ./bin/clean
 ./bin/retrousb-mappers
 ./bin/loopy-mappers
 ./bin/other-mappers mappers.csv
+./bin/add-saves battery-games

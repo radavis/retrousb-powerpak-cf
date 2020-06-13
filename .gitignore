@@ -1,4 +1,5 @@
 assets/*
+backup/*
 build/*
 img/*.img
 temp/*

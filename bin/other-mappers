@@ -13,10 +13,14 @@ mappers_dir="$current_path/build/POWERPAK"
 previous_ifs=$IFS
 IFS=";"
 
-while read name file url; do
+while read name file url checksum; do
   # download (if necessary)
   filename="$assets_dir/$file"
   [ ! -f "$filename" ] && wget "$url" -O "$filename"
+
+  # verify checksum
+  file_checksum=$(openssl dgst -sha256 -binary "$filename" | xxd -p -c 256)
+  [[ "$file_checksum" != "$checksum" ]] && echo "bad checksum for $filename, skipping" && continue
 
   # extract
   temp_dir=$(mktemp -d "$current_path/temp/$name")
